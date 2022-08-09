@@ -1,1 +1,1 @@
-# Array Type Annotations\gjg\     
+# Array Type Annotations    
