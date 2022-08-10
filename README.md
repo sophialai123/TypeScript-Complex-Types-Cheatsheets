@@ -247,3 +247,6 @@ myFunc = function(whatever: string, blah: string) {
 };
 // Neither of these assignments results in a type error.
 ```
+=======
+# Array Type Annotations    
+>>>>>>> c2262c56e5b61af12a25eb1df816c147190b0f6d
