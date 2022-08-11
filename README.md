@@ -247,4 +247,42 @@ myFunc = function(whatever: string, blah: string) {
 };
 // Neither of these assignments results in a type error.
 ```
+---
 
+## Generic Types
+
+TypeScript’s generics are ways to create collections of types (and typed functions, and more) that share certain formal similarities. These collections are parameterized by one or more type variables. 
+
+Generics give us the power to define our own collections of object types. Here’s an example:
+
+```
+type Family<T> = {
+  parents: [T, T], mate: T, children: T[]
+};
+
+```
+
+This code defines a collection of object types, with a different type for every value of T. The generic `Family<T>` cannot actually be used as a type in a type annotation. Instead, we must substitute T with some type of our choosing, for example string. Then, Family`<string>` is exactly the same as the object type given by setting T to string: `{parents:[string,string], mate:string, children: string[]}`. So the following assignment will be error free:
+
+```
+let aStringFamily: Family<string> = {
+  parents: ['stern string', 'nice string'],
+  mate: 'string next door', 
+  children: ['stringy', 'stringo', 'stringina', 'stringolio']
+}; 
+```
+
+In general, writing generic types with type typeName`<T>` allows us to use T within the type annotation as a type placeholder. Later, when the generic type is used, T is replaced with the provided type. (Writing T is just a convention. We could just as easily use S or GenericType. )
+
+---
+## Generic Functions
+
+We can also use generics to create collections of typed functions. Generic functions like these are probably easiest to understand via an example. And for once, the example is actually useful! 
+
+```
+function getFilledArray<T>(value: T, n: number): T[] {
+  return Array(n).fill(value);
+}
+```
+
+The above code tells TypeScript to make sure that `value` and the returned array have the same type `T`. When the function is invoked, we will provide `T`‘s value. For example, we can invoke the function using `getFilledArray<string>('cheese', 3)`, which sets T equal to string. This still evaluates to `['cheese', 'cheese', 'cheese']`, but the function is now correctly typed and less prone to errors. The function `getFilledArray<string>` is precisely the same as if we had written `(value: string, n: number): string[]` in its type annotation.
